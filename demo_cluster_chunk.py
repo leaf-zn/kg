@@ -315,14 +315,14 @@ def main():
         logger.info(f"可用模型: {models}")
 
         # 确认模型是否可用
-        model_name = "qwen2.5"
+        model_name = "qwen2.5:latest"
         if not any(model.get("name") == model_name for model in models):
             logger.warning(f"未找到模型 {model_name}，将使用第一个可用模型")
             if models:
-                model_name = models[0].get("name", "qwen2.5")
+                model_name = models[0].get("name", "qwen2.5:latest")
     except Exception as e:
-        logger.warning(f"获取模型列表失败: {e}，将使用默认模型: qwen2.5")
-        model_name = "qwen2.5"
+        logger.warning(f"获取模型列表失败: {e}，将使用默认模型: qwen2.5:latest")
+        model_name = "qwen2.5:latest"
 
     logger.info(f"使用模型: {model_name}")
 

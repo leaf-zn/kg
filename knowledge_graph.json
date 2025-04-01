@@ -1,0 +1,88 @@
+{
+  "entities": [
+    "Computer Science",
+    "local high school",
+    "software industry",
+    "ABC Corporation",
+    "Andrew",
+    "high schools",
+    "Linda",
+    "XYZ University",
+    "computer science",
+    "Josh",
+    "Ben",
+    "Computer Science department"
+  ],
+  "entity_clusters": {
+    "1": [
+      "Computer Science",
+      "computer science",
+      "Computer Science department"
+    ],
+    "2": [
+      "local high school",
+      "high schools"
+    ],
+    "0": [
+      "software industry",
+      "ABC Corporation",
+      "Andrew",
+      "Linda",
+      "XYZ University",
+      "Josh",
+      "Ben"
+    ]
+  },
+  "edges": [
+    "is_mother_of",
+    "has_department",
+    "works_at",
+    "is_field_of_study",
+    "provides_education_for",
+    "is_brother_of",
+    "is_in_industry",
+    "studies"
+  ],
+  "relations": [
+    [
+      "Computer Science",
+      "is_field_of_study",
+      "computer science"
+    ],
+    [
+      "Josh",
+      "studies",
+      "Computer Science"
+    ],
+    [
+      "Linda",
+      "is_mother_of",
+      "Josh"
+    ],
+    [
+      "XYZ University",
+      "has_department",
+      "Computer Science department"
+    ],
+    [
+      "ABC Corporation",
+      "is_in_industry",
+      "software industry"
+    ],
+    [
+      "local high school",
+      "provides_education_for",
+      "high schools"
+    ],
+    [
+      "Andrew",
+      "works_at",
+      "ABC Corporation"
+    ],
+    [
+      "Ben",
+      "is_brother_of",
+      "Josh"
+    ]
+  ]
+}
