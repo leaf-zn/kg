@@ -200,16 +200,37 @@ def chunk_text(text, chunk_size=5):
 
 def extract_entities_from_chunk(base_url, model_name, chunk):
     """从文本块中提取实体"""
+    # entities_prompt = f"""
+    # Task: Extract all important entities (people, places, organizations, concepts) from the following text.
+    #
+    # DO NOT translate entity names. Keep them in their original language (English).
+    #
+    # Text:
+    # {chunk}
+    #
+    # Please return only a list of entities in JSON array format: ["entity1", "entity2", ...]
+    # """
+
     entities_prompt = f"""
-    Task: Extract all important entities (people, places, organizations, concepts) from the following text.
-    
-    DO NOT translate entity names. Keep them in their original language (English).
-    
-    Text:
-    {chunk}
-    
-    Please return only a list of entities in JSON array format: ["entity1", "entity2", ...]
-    """
+        Task: Extract all important entities from the following text related to Military aviation and tactical aviation operations.
+
+        Focus on extracting these specific types of entities:
+        1. Aircraft types (e.g., F-16, Su-30, B-2, etc.)
+        2. Weapon Systems (e.g., AIM-120, AGM-88, etc.)
+        3. Personnel roles (e.g., pilot, navigator, etc.)
+        4. Tactics and techniques (e.g., dogfighting, bombing, etc.)
+        5. Military units (e.g., 56th Fighter Wing, 7th Bomb Wing, etc.)
+        6. Sensors and electronic systems (e.g., radar, EW systems, etc.)
+        7. Performance Parameters (e.g., speed, range, payload, etc.)
+        8. Other entities related to Military aviation and tactical aviation operations.
+        
+        DO NOT translate entity names. Keep them in their original language.
+
+        Text:
+        {chunk}
+
+        Please return only a list of entities in JSON array format: ["entity1", "entity2", ...]
+        """
 
     response = requests.post(
         f"{base_url}/api/generate",
@@ -327,17 +348,19 @@ def main():
     logger.info(f"使用模型: {model_name}")
 
     # 输入文本 - 可以是更长的文本
-    text_input = """
-    Linda is Josh's mother. Ben is Josh's brother. Andrew is Josh's father.
-    Josh is a student at XYZ University. He studies computer science.
-    Andrew works as a software engineer at ABC Corporation.
-    Linda is a teacher at a local high school.
-    The XYZ University has a renowned Computer Science department.
-    Computer Science is a field that studies computation and information processing.
-    ABC Corporation is a leading technology company in the software industry.
-    The software industry creates and maintains software applications and systems.
-    High schools provide education for students typically between the ages of 14 and 18.
-    """
+    # text_input = """
+    # Linda is Josh's mother. Ben is Josh's brother. Andrew is Josh's father.
+    # Josh is a student at XYZ University. He studies computer science.
+    # Andrew works as a software engineer at ABC Corporation.
+    # Linda is a teacher at a local high school.
+    # The XYZ University has a renowned Computer Science department.
+    # Computer Science is a field that studies computation and information processing.
+    # ABC Corporation is a leading technology company in the software industry.
+    # The software industry creates and maintains software applications and systems.
+    # High schools provide education for students typically between the ages of 14 and 18.
+    # """
+
+    text_input = """    """
 
     # 生成知识图谱
     try:
@@ -367,23 +390,52 @@ def main():
                 logger.info(f"簇 {cluster_id}: {entities}")
 
             # 4. 提取关系
+            # relations_prompt = f"""
+            # Task: Extract relationships between entities in the following text.
+            #
+            # Text:
+            # {text_input}
+            #
+            # Entities list:
+            # {list(all_entities)}
+            #
+            # IMPORTANT:
+            # 1. ONLY create relationships between entities in the provided list above.
+            # 2. DO NOT translate entity names. Keep them in English exactly as provided.
+            # 3. Make relationship names short and descriptive (e.g., "studies", "works_at", "is_mother_of").
+            #
+            # Return the relationships as JSON array of triplets:
+            # [["Entity1", "relationship", "Entity2"], ["Entity3", "relationship", "Entity4"], ...]
+            # """
+
             relations_prompt = f"""
-            Task: Extract relationships between entities in the following text.
+                        Task: Extract relationships between entities in the following text related to Military aviation and tactical aviation operations.
 
-            Text:
-            {text_input}
+                        Text:
+                        {text_input}
 
-            Entities list:
-            {list(all_entities)}
+                        Entities list:
+                        {list(all_entities)}
 
-            IMPORTANT:
-            1. ONLY create relationships between entities in the provided list above.
-            2. DO NOT translate entity names. Keep them in English exactly as provided.
-            3. Make relationship names short and descriptive (e.g., "studies", "works_at", "is_mother_of").
+                        IMPORTANT:
+                        1. Create relationships between entities in the provided list above as much as possible.
+                        2. DO NOT translate entity names. Keep them as provided.
+                        3. Focus on these types of relationships specific to Military aviation and tactical aviation operations:
+                           - [物理与功能，例如：武器/设备_装配于_飞行器、系统_搭载于_平台、飞行器_发射_武器等]
+                           - [战术与对抗，例如：传感器_探测_目标、电子战系统_干扰_雷达、飞行员_执行_任务等]
+                           - [逻辑与依赖，例如：导弹_依赖_雷达、技术_支持_作战、环境_制约_作战、技术_影响_战术等] 
+                           - [时间与空间，例如：事件_发生于_时间、任务_执行于_地点、飞行_持续_时间、装备_部署于_地区、武器/传感器_覆盖_区域等] 
+                           - [人员与组织，例如：飞行员_隶属于_部队、技术人员_支持_作战、部队_执行_任务、飞行员_执行_任务等]
+                           - [性能与参数，例如：飞行器_速度_性能、武器_射程_参数、传感器_精度_参数、飞行器_载荷_参数等]
+                           - [对抗与竞争，例如：飞行器_对抗_敌方、部队_竞争_对手、技术_超越_对手、作战_制胜_对手等]
+                           - [其他关系，例如：飞行器_维护_保养、技术_支持_作战、部队_执行_任务、飞行员_执行_任务等]
+                           
+                        4. Make relationship names short and descriptive.
 
-            Return the relationships as JSON array of triplets: 
-            [["Entity1", "relationship", "Entity2"], ["Entity3", "relationship", "Entity4"], ...]
-            """
+                        Return the relationships as JSON array of triplets: 
+                        [["Entity1", "relationship", "Entity2"], ["Entity3", "relationship", "Entity4"], ...]
+                        """
+
 
             logger.info("提取关系中...")
 

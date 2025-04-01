@@ -1,88 +1,147 @@
 {
   "entities": [
-    "Computer Science",
-    "local high school",
-    "software industry",
-    "ABC Corporation",
-    "Andrew",
-    "high schools",
-    "Linda",
-    "XYZ University",
-    "computer science",
-    "Josh",
-    "Ben",
-    "Computer Science department"
+    "R-37M",
+    "F-35A",
+    "加里宁格勒基地",
+    "AN/ALQ-214干扰机",
+    "AIM-120D",
+    "波罗的海",
+    "Su-57",
+    "第48战斗机联队",
+    "AN/ASQ-239",
+    "红旗军演-26",
+    "第4航空团",
+    "N036 Byelka雷达",
+    "L-402",
+    "E-7A",
+    "Kh-74M2"
   ],
   "entity_clusters": {
-    "1": [
-      "Computer Science",
-      "computer science",
-      "Computer Science department"
+    "0": [
+      "R-37M",
+      "F-35A",
+      "AN/ALQ-214干扰机",
+      "AIM-120D",
+      "波罗的海",
+      "Su-57",
+      "第48战斗机联队",
+      "AN/ASQ-239",
+      "红旗军演-26",
+      "第4航空团",
+      "N036 Byelka雷达",
+      "L-402",
+      "E-7A"
     ],
     "2": [
-      "local high school",
-      "high schools"
+      "加里宁格勒基地"
     ],
-    "0": [
-      "software industry",
-      "ABC Corporation",
-      "Andrew",
-      "Linda",
-      "XYZ University",
-      "Josh",
-      "Ben"
+    "1": [
+      "Kh-74M2"
     ]
   },
   "edges": [
-    "is_mother_of",
-    "has_department",
-    "works_at",
-    "is_field_of_study",
-    "provides_education_for",
-    "is_brother_of",
-    "is_in_industry",
-    "studies"
+    "发射",
+    "因燃油不足",
+    "干扰",
+    "主动干扰模式",
+    "事件发生于",
+    "诱偏",
+    "传输数据",
+    "优化",
+    "执行",
+    "压制",
+    "执行任务",
+    "反击",
+    "接收",
+    "启动",
+    "维持锁定",
+    "应对"
   ],
   "relations": [
     [
-      "Computer Science",
-      "is_field_of_study",
-      "computer science"
+      "Kh-74M2",
+      "应对",
+      "AIM-260"
     ],
     [
-      "Josh",
-      "studies",
-      "Computer Science"
+      "红旗军演-26",
+      "优化",
+      "隐身战机协同战术"
     ],
     [
-      "Linda",
-      "is_mother_of",
-      "Josh"
+      "F-35A",
+      "发射",
+      "AIM-120D"
     ],
     [
-      "XYZ University",
-      "has_department",
-      "Computer Science department"
+      "加里宁格勒基地",
+      "接收",
+      "Su-57编队撤离"
     ],
     [
-      "ABC Corporation",
-      "is_in_industry",
-      "software industry"
+      "波罗的海",
+      "事件发生于",
+      "冲突"
     ],
     [
-      "local high school",
-      "provides_education_for",
-      "high schools"
+      "L-402希比内电子对抗吊舱",
+      "主动干扰模式",
+      "红外制导系统"
     ],
     [
-      "Andrew",
-      "works_at",
-      "ABC Corporation"
+      "L-402",
+      "干扰",
+      "GPS信号"
     ],
     [
-      "Ben",
-      "is_brother_of",
-      "Josh"
+      "AN/ASQ-239",
+      "维持锁定",
+      "RF-701"
+    ],
+    [
+      "R-37M",
+      "反击",
+      "AIM-120D"
+    ],
+    [
+      "Su-57",
+      "启动",
+      "N036 Byelka雷达(LPI模式)"
+    ],
+    [
+      "AN/ALQ-214干扰机",
+      "压制",
+      "N036 Byelka雷达"
+    ],
+    [
+      "第48战斗机联队",
+      "执行任务",
+      "波罗的海"
+    ],
+    [
+      "苏-704",
+      "因燃油不足",
+      "撤退"
+    ],
+    [
+      "Falcon-1",
+      "执行",
+      "高G滚筒机动"
+    ],
+    [
+      "Su-57",
+      "发射",
+      "R-37M"
+    ],
+    [
+      "E-7A预警机",
+      "传输数据",
+      "F-35A"
+    ],
+    [
+      "R-37M",
+      "诱偏",
+      "AIM-120D导弹"
     ]
   ]
 }
