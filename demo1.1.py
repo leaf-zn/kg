@@ -632,11 +632,27 @@ def main():
                 "processed_files": file_paths  # 记录处理的文件列表
             }
             
-            # 打印和保存知识图谱的逻辑保持不变
-            # ...
+            # 打印生成的知识图谱
+            print("\n生成的知识图谱:")
+            print("实体 (Entities):", graph["entities"])
+            print("实体聚类:")
+            for cluster_id, entities in graph["entity_clusters"].items():
+                print(f"  簇 {cluster_id}: {entities}")
+            print("关系聚类:")  # 新增
+            for cluster_id, relations in graph["relation_clusters"].items():
+                print(f"  簇 {cluster_id}: {relations}")
+            print("边 (Edges):", graph["edges"])
+            print("关系 (Relations):", graph["relations"])
             
-            # 将知识图谱存储到Neo4j
-            # ...
+            # 保存知识图谱到JSON文件
+            with open(args.output, "w", encoding="utf-8") as f:
+                json.dump(graph, f, ensure_ascii=False, indent=2)
+            logger.info(f"知识图谱已保存到 {args.output}")
+            
+            # 将知识图谱存储到Neo4j (保持不变)
+            logger.info("开始将知识图谱存储到Neo4j...")
+            store_in_neo4j(graph)
+            logger.info("Neo4j存储过程完成")
             
         else:
             logger.error("没有提取到任何实体，无法构建图谱")
